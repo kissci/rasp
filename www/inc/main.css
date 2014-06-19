@@ -1,0 +1,30 @@
+body {
+	font-family: 'Open Sans Condensed', verdana, sans-serif !important;
+/*	font-size: 1.5em !important;
+*/
+	padding-top: 50px !important;
+}
+h2 {
+	text-align: center !important;
+}
+.value {
+	text-align: center !important;
+	font-size: 1.7em !important;
+	font-weight: bold !important;
+}
+.col-centered{
+	text-align: center !important;
+}
+.hum {
+	color: #a2a2a2 !important;
+}
+.avg {
+	font-size:0.9em !important;
+	opacity: 0.4 !important;
+}
+h4 {
+	margin: 0.3em 0 !important;
+}
+.grafgauge {
+	float: left;
+}
