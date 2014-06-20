@@ -40,7 +40,7 @@ altitude = bmp.readAltitude()
 p_calc = (pressure+((102/10)*1.2)*100)/100
 
 
-filepath = "/root/WS/data/"+datetime.datetime.now().strftime("%Y")+"/"+datetime.datetime.now().strftime("%m")+"/"
+filepath = "/home/pi/WS/data/"+datetime.datetime.now().strftime("%Y")+"/"+datetime.datetime.now().strftime("%m")+"/"
 if not os.path.exists(filepath):
     os.makedirs(filepath)
 
