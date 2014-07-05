@@ -2,7 +2,18 @@
 use strict;
 use lib './inc';
 use HTMLfunc;
-print head('Szatmárhegy WS');
+use Data::Dumper;
+
+for (my $i = time-60*60*24*30; $i <= time; $i+=86400) {
+	my @d = localtime($i);
+	$d[4]++;if ($d[4] < 10){$d[4]='0'.$d[4]};
+		if ($d[3] < 10){$d[3]='0'.$d[3]};
+	my $datestring = ($d[5]+1900).($d[4]).($d[3]);
+	print $datestring."\n";
+}
+
+exit;
+
 
 print '		<div class="row" style="padding-top: 1em">
 			<div class="col-xs-4 col-centered">2014. 06. 14.</div>
@@ -49,8 +60,6 @@ print '		<div class="row" style="padding-top: 1em">
     …
 
 </div>
-
-
 ';
 
 print "<p>";

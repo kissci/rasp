@@ -11,13 +11,26 @@
 export HOME
 case "$1" in
 	start)
+		LCDisRunning=`ps aux| grep -i /home/pi/WS/code/LCD/LCD.py|grep -v "grep"|wc -l`
+		if [ ${LCDisRunning} -ge 1 ]
+			then
+				echo "Stopping LCD"
+				LCD_PID=`ps aux | grep LCD.py | head -1 | awk '{print $2}'`
+				kill -9 $LCD_PID
+		fi
 		echo "Starting LCD"
-		python /root/WS/LCD/LCD.py 2>&1 &
+		python /home/pi/WS/code/LCD/LCD.py 2>&1 &
 	;;
 	stop)
-		echo "Stopping LCD"
-		LCD_PID=`ps aux | grep LCD.py | head -1 | awk '{print $2}'`
-		sudo kill -9 $LCD_PID
+		LCDisRunning=`ps aux| grep -i /home/pi/WS/code/LCD/LCD.py|grep -v "grep"|wc -l`
+		if [ ${LCDisRunning} -ge 1 ]
+			then
+				echo "Stopping LCD"
+				LCD_PID=`ps aux | grep LCD.py | head -1 | awk '{print $2}'`
+				kill -9 $LCD_PID
+			else
+				echo "LCD no running"
+		fi
 	;;
 	*)
 		echo "Usage: /etc/init.d/lcd {start|stop}"

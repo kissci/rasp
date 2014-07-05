@@ -5,7 +5,7 @@ import smbus
 import getopt
 import sys
 from time import *
-from time import gmtime, strftime
+#from time import gmtime, strftime
 import datetime
 
 import csv
@@ -122,16 +122,30 @@ class lcd:
 
         # we can initialize the display only once after it had been powered on
         if(withOneTimeInit):
-            self.lcd_device.write(0x20) 
-            self.lcd_strobe()
-            sleep(0.0100) # TODO: Not clear if we have to wait that long
-            self.lcd_write(self.LCD_FUNCTIONSET | self.LCD_4BITMODE  | self.LCD_2LINE | self.LCD_5x8DOTS) # 0x28
+#           self.lcd_device.write(0x20) 
+#           self.lcd_strobe()
+#           sleep(0.0100) # TODO: Not clear if we have to wait that long
+#           self.lcd_write(self.LCD_FUNCTIONSET | self.LCD_4BITMODE  | self.LCD_2LINE | self.LCD_5x8DOTS) # 0x28
+           self.lcd_device.write(0x30)
+           self.lcd_strobe()
+           sleep(0.0005)
+           self.lcd_strobe()
+           sleep(0.0005)
+           self.lcd_strobe()
+           sleep(0.0005)
+           self.lcd_device.write(0x20)
+           self.lcd_strobe()
+           sleep(0.0005)
+           # 0x28
+           self.lcd_write(self.LCD_FUNCTIONSET | self.LCD_4BITMODE  | self.LCD_2LINE | self.LCD_5x8DOTS)
+
 
         self.lcd_write(self.LCD_DISPLAYCONTROL | self.displaycontrol)   # 0x08 + 0x4 = 0x0C
         self.lcd_write(self.LCD_ENTRYMODESET   | self.displaymode)      # 0x06
         self.lcd_write(self.LCD_CLEARDISPLAY)                           # 0x01
-        self.lcd_write(self.LCD_CURSORSHIFT    | self.displayshift)     # 0x14 
+        self.lcd_write(self.LCD_CURSORSHIFT    | self.displayshift)     # 0x14
         self.lcd_write(self.LCD_RETURNHOME)
+
 
     # clocks EN to latch command
     def lcd_strobe(self):
@@ -192,9 +206,7 @@ class lcd:
 
     # clear lcd and set to home
     def lcd_clear(self):
-        # self.lcd_write(0x10)
         self.lcd_write(self.LCD_CLEARDISPLAY)
-        # self.lcd_write(0x20)
         self.lcd_write(self.LCD_RETURNHOME)
 
     # add custom characters (0 - 7)
@@ -242,12 +254,12 @@ def main():
     device.lcd_clear()
 
     while True:
-	with open('/var/www/data/bmp180.act.csv', 'rb') as csvfile:
-		line = csv.reader(csvfile, delimiter=';', quotechar='|')
-		for row in line:
-			device.lcd_puts(row[1]+"C  "+row[2]+"hPa",1)
-	device.lcd_puts(datetime.datetime.now().strftime("    %H:%M:%S"),2)
-	sleep(1)
+		with open('/var/www/data/bmp180.act.csv', 'rb') as csvfile:
+			line = csv.reader(csvfile, delimiter=';', quotechar='|')
+			for row in line:
+				device.lcd_puts(row[1]+"C  "+row[2]+"hPa",1)
+		device.lcd_puts(datetime.datetime.now().strftime("    %H:%M:%S"),2)
+		sleep(1)
 
 if __name__ == '__main__':
-    main()
+	main()

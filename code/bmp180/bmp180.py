@@ -45,17 +45,18 @@ if not os.path.exists(filepath):
     os.makedirs(filepath)
 
 with open(filepath+"bmp180."+datetime.datetime.now().strftime("%Y%m%d")+".csv", "a") as myfile:
-	myfile.write(datetime.datetime.now().strftime("%Y%m%d %H:%M:%S;"))
+	myfile.write(datetime.datetime.now().strftime("%s;"))
 	myfile.write( "%.2f;" % temp)
 	myfile.write( "%.2f\n" % p_calc)
 
 with open("/var/www/data/bmp180.act.csv", "w") as myfile1:
-	myfile1.write(datetime.datetime.now().strftime("%Y.%m.%d. %H:%M:%S;"))
+#	myfile1.write(datetime.datetime.now().strftime("%Y.%m.%d. %H:%M:%S;"))
+	myfile1.write(datetime.datetime.now().strftime("%s;"))
 	myfile1.write( "%.1f;" % temp)
 	myfile1.write( "%.1f\n" % p_calc)
 
 
-print "Temperature: %.2f C" % temp
-print "Pressure:    %.2f hPa" % (pressure / 100.0)
-print "Calc Pressure:    %.2f hPa" % (p_calc)
-print "Altitude:    %.2f" % altitude
+print "Temperature:	%.2f C" % temp
+print "Pressure:	%.2f hPa" % (pressure / 100.0)
+print "Calc Pressure:	%.2f hPa" % (p_calc)
+print "Altitude:	%.2f" % altitude
