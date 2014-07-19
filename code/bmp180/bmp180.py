@@ -55,7 +55,6 @@ with open("/var/www/data/bmp180.act.csv", "w") as myfile1:
 	myfile1.write( "%.1f;" % temp)
 	myfile1.write( "%.1f\n" % p_calc)
 
-
 print "Temperature:	%.2f C" % temp
 print "Pressure:	%.2f hPa" % (pressure / 100.0)
 print "Calc Pressure:	%.2f hPa" % (p_calc)
